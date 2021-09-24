@@ -1,0 +1,6 @@
+{
+  "appId": "io.ionic.starter",
+  "appName": "body-care",
+  "webDir": "build",
+  "bundledWebRuntime": false
+}
