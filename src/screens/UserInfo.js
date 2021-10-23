@@ -1,9 +1,8 @@
 import React from 'react';
 import { TextInput, RadioButton, Button } from 'react-native-paper';
-import { View, Text } from 'react-native';
+import { View, Text, ActivityIndicator } from 'react-native';
 import { useState } from 'react/cjs/react.development';
 import axios from 'axios';
-// import Loader from '~/components/Loader';
 
 const UserInfo = () => {
     const [name, setName] = useState('');
@@ -13,20 +12,26 @@ const UserInfo = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const onCreateUser = async () => {
-        // setIsLoading(true);
-        // const response = await axios.post('http://localhost:3000/api/v1/user', {
-        //     name,
-        //     plan,
-        //     address,
-        //     contact,
-        //     profilePhoto: 'NA'
-        // });
-        // setIsLoading(false);
+        setIsLoading(true);
+        const response = await axios.post('http://localhost:3000/api/v1/user', {
+            name,
+            plan,
+            address,
+            contact,
+            profilePhoto: 'NA'
+        });
+        setIsLoading(false);
+    }
+
+    if (isLoading) {
+        return (
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <ActivityIndicator size="large"></ActivityIndicator>
+        </View>)
     }
 
     return (
         <View>
-            {/* <Loader></Loader> */}
             <TextInput label="Name" placeholder="Enter name" onChangeText={text => setName(text)} />
             <TextInput label="Address" placeholder="Enter address" onChangeText={text => setAddress(text)} />
             <TextInput label="Contact" placeholder="Enter mobile number" onChangeText={text => setContact(text)} keyboardType="number-pad" />
