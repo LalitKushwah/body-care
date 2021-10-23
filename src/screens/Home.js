@@ -1,24 +1,34 @@
 import React, { useState, useContext, useEffect } from 'react';
 import {View, StyleSheet} from 'react-native';
-import {FAB} from 'react-native-paper';
+import {ActivityIndicator, FAB} from 'react-native-paper';
 import StatusBar from '~/components/StatusBar'
 import TodoList from '../components/TodoList';
 import Modal from '~/components/Modal';
 import {TodoContext} from '~/context/TodoContext';
 import axios from 'axios';
+import Loader from '~/components/Loader';
 
 const HomeScreen = ({navigation}) => {
   // const { todos } = useContext(TodoContext);
   const [visible, setVisible] = useState(false);
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
+  const [isLoading, setIsLoading] = useState(true)
 
   const [members, setMembers]  = useState([]);
   useEffect(() => {
     axios('http://localhost:3000/api/v1/users').then(response => {
+      setIsLoading(false);
       setMembers(response.data)
-    }).catch(err => console.error(err));
-  }, [])
+    }).catch(err =>{
+      setIsLoading(false);
+      console.error(err);
+    });
+  }, [setIsLoading, isLoading])
+
+  if (isLoading) {
+    return <Loader></Loader>
+  }
 
   return (
     <View style={styles.container}>

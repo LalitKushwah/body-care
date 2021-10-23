@@ -1,8 +1,9 @@
 import React from 'react';
 import { TextInput, RadioButton, Button } from 'react-native-paper';
-import { View, Text, ActivityIndicator } from 'react-native';
+import { View, Text } from 'react-native';
 import { useState } from 'react/cjs/react.development';
 import axios from 'axios';
+import Loader from '~/components/Loader';
 
 const UserInfo = () => {
     const [name, setName] = useState('');
@@ -24,10 +25,7 @@ const UserInfo = () => {
     }
 
     if (isLoading) {
-        return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <ActivityIndicator size="large"></ActivityIndicator>
-        </View>)
+        return <Loader></Loader>
     }
 
     return (
