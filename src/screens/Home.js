@@ -17,7 +17,7 @@ const HomeScreen = ({navigation}) => {
 
   const [members, setMembers]  = useState([]);
   useEffect(() => {
-    axios('http://localhost:3000/api/v1/users').then(response => {
+    axios('https://boiling-taiga-78839.herokuapp.com/api/v1/users').then(response => {
       setIsLoading(false);
       setMembers(response.data)
     }).catch(err =>{

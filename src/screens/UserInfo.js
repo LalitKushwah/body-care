@@ -5,7 +5,7 @@ import { useState } from 'react/cjs/react.development';
 import axios from 'axios';
 import { Avatar } from 'react-native-paper';
 import Loader from '~/components/Loader';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
 const UserInfo = () => {
     const [name, setName] = useState('');
@@ -17,7 +17,7 @@ const UserInfo = () => {
 
     const onCreateUser = async () => {
         setIsLoading(true);
-        const response = await axios.post('http://localhost:3000/api/v1/user', {
+        const response = await axios.post('https://boiling-taiga-78839.herokuapp.com/api/v1/user', {
             name,
             plan,
             address,
@@ -33,17 +33,17 @@ const UserInfo = () => {
 
     return (
         <View>
-            <View style={{alignItems: 'center', justifyContent: 'center', margin: 10}}>
-                <Pressable onPress={() => launchCamera({mediaType: 'photo'}, res => {
+            <View style={{ alignItems: 'center', justifyContent: 'center', margin: 10 }}>
+                <Pressable onPress={() => launchCamera({ mediaType: 'photo' }, res => {
                     console.log(res);
                     setCameraUri(res.assets[0].uri);
                 })}>
-                <Avatar.Image
-                    size={100}
-                    style={{backgroundColor: 'white'}}
-                    source={{uri: cameraUri}}
+                    <Avatar.Image
+                        size={100}
+                        style={{ backgroundColor: 'white' }}
+                        source={{ uri: cameraUri }}
                     />
-                    </Pressable>
+                </Pressable>
             </View>
             <TextInput label="Name" placeholder="Enter name" onChangeText={text => setName(text)} />
             <TextInput label="Address" placeholder="Enter address" onChangeText={text => setAddress(text)} />
