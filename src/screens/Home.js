@@ -1,18 +1,12 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, StyleSheet} from 'react-native';
-import {ActivityIndicator, FAB} from 'react-native-paper';
+import {FAB} from 'react-native-paper';
 import StatusBar from '~/components/StatusBar'
 import TodoList from '../components/TodoList';
-import Modal from '~/components/Modal';
-import {TodoContext} from '~/context/TodoContext';
 import axios from 'axios';
 import Loader from '~/components/Loader';
 
 const HomeScreen = ({navigation}) => {
-  // const { todos } = useContext(TodoContext);
-  const [visible, setVisible] = useState(false);
-  const showModal = () => setVisible(true);
-  const hideModal = () => setVisible(false);
   const [isLoading, setIsLoading] = useState(true)
 
   const [members, setMembers]  = useState([]);
@@ -40,7 +34,6 @@ const HomeScreen = ({navigation}) => {
         onPress={() => navigation.push('UserInfo')}
         style={styles.fab}
       />
-      <Modal visible={visible} onDismiss={hideModal}/>
     </View>
   );
 };
