@@ -6,15 +6,12 @@
  * @flow strict-local
  */
 
- import React from 'react';
- import Navigator from './src/navigation/navigator';
- import {TodoContextProvider} from './src/context/TodoContext';
+import React from 'react';
+import Navigator from './src/navigation/navigator';
 
- const App = () => {
-   return (
-     <TodoContextProvider>
-       <Navigator></Navigator>
-     </TodoContextProvider>
-   );
- };
- export default App;
+const App = () => {
+  return (
+    <Navigator></Navigator>
+  );
+};
+export default App;

@@ -46,7 +46,6 @@ const Navigator = () => {
       >
         <Tab.Screen name="HomeMenu" component={HomeScreenStack}></Tab.Screen>
         <Tab.Screen name="UpcomingFees" component={UpcomingFessStack}></Tab.Screen>
-
       </Tab.Navigator>
     </NavigationContainer>
   );

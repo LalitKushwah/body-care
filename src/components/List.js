@@ -1,14 +1,14 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { FlatList } from 'react-native';
-import TodoItem from './TodoItem';
+import ListItem from './ListItem';
 
-const TodoList = ({ members }) => {
+const List = ({ members }) => {
   return (
     <View style={styles.container}>
       <FlatList
         data={members}
-        renderItem={itemData => <TodoItem name={itemData.item.name} id={itemData.item._id} />}
+        renderItem={itemData => <ListItem name={itemData.item.name} id={itemData.item._id} />}
       />
     </View>
   );
@@ -20,4 +20,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default TodoList;
+export default List;

@@ -1,11 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Button } from 'react-native-paper';
-import { TodoContext } from '../context/TodoContext';
-import { useContext } from 'react';
 
-const TodoItem = ({ name, id }) => {
-    // const { removeTodo } = useContext(TodoContext);
+const ListItem = ({ name, id }) => {
     return (
         <View style={styles.container}>
             <View style={styles.titleContainer}>
@@ -44,4 +40,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default TodoItem;
+export default ListItem;

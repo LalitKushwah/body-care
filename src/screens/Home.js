@@ -2,14 +2,14 @@ import React, {useState, useEffect} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {FAB} from 'react-native-paper';
 import StatusBar from '~/components/StatusBar'
-import TodoList from '../components/TodoList';
+import List from '../components/List';
 import axios from 'axios';
 import Loader from '~/components/Loader';
 
 const HomeScreen = ({navigation}) => {
-  const [isLoading, setIsLoading] = useState(true)
-
+  const [isLoading, setIsLoading] = useState(true);
   const [members, setMembers]  = useState([]);
+
   useEffect(() => {
     axios('https://boiling-taiga-78839.herokuapp.com/api/v1/users').then(response => {
       setIsLoading(false);
@@ -27,7 +27,7 @@ const HomeScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <StatusBar bgColor="#5e3d9f"></StatusBar>
-      <TodoList members={members}/>
+      <List members={members}/>
       <FAB
         medium
         icon="plus"
