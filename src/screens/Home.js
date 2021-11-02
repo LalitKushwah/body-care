@@ -1,24 +1,33 @@
 import React, {useState, useEffect} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {FAB} from 'react-native-paper';
-import StatusBar from '~/components/StatusBar'
 import List from '../components/List';
 import axios from 'axios';
 import Loader from '~/components/Loader';
+import Searchbar from '~/components/Searchbar';
 
 const HomeScreen = ({navigation}) => {
   const [isLoading, setIsLoading] = useState(true);
   const [members, setMembers]  = useState([]);
+  const [searchText, setSearchText] = useState('');
+  const [allMember, setAllMember] = useState([]);
 
   useEffect(() => {
-    axios('https://boiling-taiga-78839.herokuapp.com/api/v1/users').then(response => {
+    axios('/users').then(response => {
       setIsLoading(false);
-      setMembers(response.data)
+      setMembers(response.data);
+      setAllMember(response.data);
     }).catch(err =>{
       setIsLoading(false);
       console.error(err);
     });
-  }, [setIsLoading, isLoading])
+  }, [setIsLoading, isLoading]);
+
+  const onSearchHandler = text => {
+    setSearchText(text);
+    const filteredMembers = allMember.filter(member => member.name.toLowerCase().includes(text.toLowerCase()));
+    setMembers(filteredMembers);
+  }
 
   if (isLoading) {
     return <Loader></Loader>
@@ -26,7 +35,7 @@ const HomeScreen = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <StatusBar bgColor="#5e3d9f"></StatusBar>
+      <Searchbar searchText={searchText} onSearchHandler={onSearchHandler}></Searchbar>
       <List members={members}/>
       <FAB
         medium

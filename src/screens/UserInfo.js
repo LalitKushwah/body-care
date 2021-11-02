@@ -5,6 +5,8 @@ import { useState } from 'react/cjs/react.development';
 import axios from 'axios';
 import { Avatar } from 'react-native-paper';
 import Loader from '~/components/Loader';
+import CONSTANTS from '~/constants/assets';
+
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
 const UserInfo = () => {
@@ -13,11 +15,11 @@ const UserInfo = () => {
     const [address, setAddress] = useState('');
     const [contact, setContact] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const [cameraUri, setCameraUri] = useState('https://cdn1.iconfinder.com/data/icons/rounded-black-basic-ui/139/Photo_Add-RoundedBlack-512.png');
+    const [cameraUri, setCameraUri] = useState(CONSTANTS.DEFAULT_CAMERA_IMAGE);
 
     const onCreateUser = async () => {
         setIsLoading(true);
-        const response = await axios.post('https://boiling-taiga-78839.herokuapp.com/api/v1/user', {
+        const response = await axios.post('/user', {
             name,
             plan,
             address,

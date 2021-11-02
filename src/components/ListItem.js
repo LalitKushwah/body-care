@@ -1,42 +1,28 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import { List } from 'react-native-paper';
+import { Avatar } from 'react-native-paper';
 
-const ListItem = ({ name, id }) => {
+const ListItem = ({ name, address }) => {
     return (
         <View style={styles.container}>
-            <View style={styles.titleContainer}>
-                <Text style={styles.title}>{name}</Text>
-            </View>
+            <List.Item
+                title={name}
+                description={address}
+                left={() => <Avatar.Icon style={{ margin: 10 }} size={50} icon="account" />}
+                right={() => <List.Icon icon="arrow-right-circle" />}
+            />
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
+        flex: 1,
         borderRadius: 10,
         backgroundColor: '#fff',
         padding: 10,
         marginTop: 10
-    },
-    titleContainer: {
-        flex: 0.8,
-    },
-    title: {
-        fontSize: 18
-    },
-    actionContainer: {
-        flex: 0.2,
-        flexDirection: 'row',
-        justifyContent: 'space-between'
-    },
-    edit: {
-        // flex: 0.1,
-    },
-    delete: {
-        // flex: 0.1
     }
 });
 

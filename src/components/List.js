@@ -8,7 +8,7 @@ const List = ({ members }) => {
     <View style={styles.container}>
       <FlatList
         data={members}
-        renderItem={itemData => <ListItem name={itemData.item.name} id={itemData.item._id} />}
+        renderItem={itemData => <ListItem name={itemData.item.name} id={itemData.item._id} address={itemData.item.address}/>}
       />
     </View>
   );

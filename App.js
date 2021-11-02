@@ -8,10 +8,14 @@
 
 import React from 'react';
 import Navigator from './src/navigation/navigator';
+import StatusBar from '~/components/StatusBar'
 
 const App = () => {
   return (
-    <Navigator></Navigator>
+    <>
+      <StatusBar bgColor="#5e3d9f"></StatusBar>
+      <Navigator></Navigator>
+    </>
   );
 };
 export default App;

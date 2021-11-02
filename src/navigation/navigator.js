@@ -11,10 +11,20 @@ const HomeStack = createStackNavigator();
 const UpcomingFeesStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
+const screenOptions = {
+  headerStyle: { backgroundColor: '#5e3d9f' }
+};
+
 const HomeScreenStack = () => (
   <HomeStack.Navigator>
-    <HomeStack.Screen name="Members" component={HomeScreen} />
-    <HomeStack.Screen name="UserInfo" component={UserInfo} />
+    <HomeStack.Screen
+      name="Members"
+      component={HomeScreen}
+      options={screenOptions} />
+    <HomeStack.Screen
+      name="UserInfo"
+      component={UserInfo}
+      options={screenOptions} />
   </HomeStack.Navigator>
 );
 
@@ -33,7 +43,7 @@ const Navigator = () => {
           headerShown: false,
           tabBarIcon: ({ color, size }) => {
             let iconName;
-            if (route.name === 'Members') {
+            if (route.name === 'HomeMenu') {
               iconName = 'home';
             } else {
               iconName = 'money';
