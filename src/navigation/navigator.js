@@ -6,6 +6,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import HomeScreen from '~/screens/Home';
 import UserInfo from '~/screens/UserInfo';
 import UpcomingFees from '../screens/UpcomingFees';
+import MemberDetail from '../screens/MemberDetail';
 
 const HomeStack = createStackNavigator();
 const UpcomingFeesStack = createStackNavigator();
@@ -21,6 +22,12 @@ const HomeScreenStack = () => (
       name="Members"
       component={HomeScreen}
       options={screenOptions} />
+    <HomeStack.Screen
+      name="MemberDetail"
+      component={MemberDetail}
+      options={screenOptions}
+    >
+    </HomeStack.Screen>
     <HomeStack.Screen
       name="UserInfo"
       component={UserInfo}

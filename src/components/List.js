@@ -2,8 +2,11 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { FlatList } from 'react-native';
 import ListItem from './ListItem';
+import { useNavigation } from '@react-navigation/native';
 
-const List = ({ members }) => {
+
+const List = ({ members, rest }) => {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <FlatList
