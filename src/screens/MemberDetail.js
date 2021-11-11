@@ -28,9 +28,9 @@ const MemberDetail = () => {
     ]
     return (
         <View>
-            <View style={{ alignItems: 'center' }}>
+            <View style={{ alignItems: 'center', backgroundColor: 'white', borderRadius: 30, margin: 15 }}>
                 <View>
-                    <Avatar.Icon style={{ margin: 10 }} size={100} icon="account" />
+                    <Avatar.Icon style={{margin: 10}} size={100} icon="account" />
                 </View>
                 <View>
                     <Text style={{ fontSize: 25 }}>Lalit Kushwah</Text>

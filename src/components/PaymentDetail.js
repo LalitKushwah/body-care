@@ -1,6 +1,6 @@
 import React from 'react';
-import { Text } from 'react-native';
-import { List } from 'react-native-paper';
+import { View } from 'react-native';
+import { List, Badge } from 'react-native-paper';
 
 const PaymentDetail = () => {
     return (
@@ -8,8 +8,8 @@ const PaymentDetail = () => {
             title='Payment Remark'
             description='11th March, 2021'
             left={props => <List.Icon {...props} icon="contactless-payment" />}
-            right={() => <Text style={{marginRight: 10,marginTop: 10, fontSize: 20}}>{500}</Text>}
-            style={{borderRadius: 10, backgroundColor: 'white', margin: 10}}
+            right={() => <View style={{ margin: 10 }}><Badge size={25} style={{ backgroundColor: 'grey', color: 'white', width: 60 }}>500</Badge></View>}
+            style={{ borderRadius: 10, backgroundColor: 'white', margin: 10 }}
         >
         </List.Item>
     );
