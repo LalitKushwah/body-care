@@ -17,13 +17,16 @@ const screenOptions = {
 };
 
 const HomeScreenStack = () => (
-  <HomeStack.Navigator>
+  <HomeStack.Navigator screenOptions={{
+    headerTitleStyle:{color: 'white'},
+    headerTintColor: 'white',
+  }}>
     <HomeStack.Screen
       name="Members"
       component={HomeScreen}
       options={screenOptions} />
     <HomeStack.Screen
-      name="MemberDetail"
+      name="Member Detail"
       component={MemberDetail}
       options={screenOptions}
     >

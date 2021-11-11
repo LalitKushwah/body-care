@@ -8,7 +8,7 @@ const ListItem = ({ name, address }) => {
     const navigation = useNavigation();
     return (
         <View style={styles.container}>
-            <Pressable onPress={() => navigation.navigate('MemberDetail')} android_ripple={{ borderless: false }}>
+            <Pressable onPress={() => navigation.navigate('Member Detail')} android_ripple={{ borderless: false }}>
                 <List.Item
                     title={name}
                     description={address}
