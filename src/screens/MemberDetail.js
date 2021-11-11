@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, SectionList } from 'react-native';
 import { Avatar, List } from 'react-native-paper';
 import moment from 'moment';
+import PaymentDetail from '~/components/PaymentDetail';
 
 const MemberDetail = () => {
     const paymentHistory = [
@@ -27,22 +28,24 @@ const MemberDetail = () => {
     ]
     return (
         <View>
-            <View style={{alignItems: 'center'}}>
+            <View style={{ alignItems: 'center' }}>
                 <View>
-                    <Avatar.Icon style={{ margin: 10 }} size={50} icon="account" />
+                    <Avatar.Icon style={{ margin: 10 }} size={100} icon="account" />
                 </View>
                 <View>
-                    <Text>Lalit Kushwah</Text>
-                    <Text>9770341411</Text>
-                    <Text>Indore</Text>
-                    <Text>Membership: Quaterly</Text>
+                    <Text style={{ fontSize: 25 }}>Lalit Kushwah</Text>
+                    <View style={{padding: 10, alignItems: 'center'}}>
+                        <Text>9770341411</Text>
+                        <Text>Indore</Text>
+                        <Text>Quaterly</Text>
+                    </View>
                 </View>
             </View>
             <SectionList
-                style={{margin: 10}}
+                style={{ margin: 10 }}
                 sections={paymentHistory}
                 // keyExtractor={(item, index) => item + index}
-                renderItem={({ item }) => <List.Item title={item.date} right={() => <Text>{item.amount}</Text>} />}
+                renderItem={({ item }) => <PaymentDetail/>}
                 renderSectionHeader={({ section: { title } }) => (
                     <Text>{title}</Text>
                 )}
