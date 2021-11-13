@@ -6,6 +6,7 @@ import axios from 'axios';
 import { Avatar } from 'react-native-paper';
 import Loader from '~/components/Loader';
 import CONSTANTS from '~/constants/assets';
+import {FAB} from 'react-native-paper';
 
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 

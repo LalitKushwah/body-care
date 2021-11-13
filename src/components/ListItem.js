@@ -4,11 +4,12 @@ import { List } from 'react-native-paper';
 import { Avatar } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 
-const ListItem = ({ name, address }) => {
+const ListItem = ({ name, address, _id }) => {
     const navigation = useNavigation();
+    const user = {name, address, _id}
     return (
         <View style={styles.container}>
-            <Pressable onPress={() => navigation.navigate('Member Detail')} android_ripple={{ borderless: false }}>
+            <Pressable onPress={() => navigation.navigate('Member Detail', {...user})} android_ripple={{ borderless: false }}>
                 <List.Item
                     title={name}
                     description={address}
