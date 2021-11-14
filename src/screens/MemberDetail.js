@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import { View, Text, SectionList, StyleSheet } from 'react-native';
 import { Avatar, TextInput, Button } from 'react-native-paper';
 import moment from 'moment';
@@ -7,49 +7,62 @@ import { FAB } from 'react-native-paper';
 import BottomSheet from '../components/BottomSheet';
 import { useState } from 'react/cjs/react.development';
 import axios from 'axios';
+import { FlatList } from 'react-native-gesture-handler';
+import Loader from '~/components/Loader';
 
-
-const MemberDetail = ({route}) => {
-    const {_id, name, address} = route.params;
+const MemberDetail = ({ route }) => {
+    const { _id, name, address } = route.params;
     const bottomsheetRef = useRef();
     const [amount, setAmount] = useState();
     const [remark, setRemark] = useState();
-    const paymentHistory = [
-        {
-            title: 'Payment History',
-            data: [
-                { date: moment().format('LL'), amount: 500 },
-                { date: moment().format('LL'), amount: 1000 },
-                { date: moment().format('LL'), amount: 500 },
-                { date: moment().format('LL'), amount: 1000 },
-                { date: moment().format('LL'), amount: 500 },
-                { date: moment().format('LL'), amount: 1000 },
-                { date: moment().format('LL'), amount: 500 },
-                { date: moment().format('LL'), amount: 1000 },
-                { date: moment().format('LL'), amount: 500 },
-                { date: moment().format('LL'), amount: 1000 },
-                { date: moment().format('LL'), amount: 500 },
-                { date: moment().format('LL'), amount: 1000 },
-                { date: moment().format('LL'), amount: 500 },
-                { date: moment().format('LL'), amount: 1000 }
-            ]
-        }
-    ]
+    const [paymentHistory, setPaymentHistory] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
-    const addPayment = async () => {
+    useEffect(() => {
+        setIsLoading(true)
+        fetchPayment();
+    }, [setPaymentHistory])
+
+    const fetchPayment = () => {
+        axios.get(`/payment?userId=${_id}`)
+            .then(response => {
+                setPaymentHistory(response.data);
+                setIsLoading(false);
+            })
+            .catch(err => {
+                console.error(err);
+                setIsLoading(false);
+            });
+    }
+
+    const addPayment = useCallback(async () => {
+        setIsLoading(true);
         const response = await axios.post('/payment', {
             userId: _id,
             amount,
             remark
         });
-        console.log('==== reponse ===', response);
+        setIsLoading(false);
+        setAmount(null);
+        setRemark(null);
+        fetchPayment();
+    }, [_id, amount, remark])
+
+    const renderFooter = !paymentHistory.length && (
+        <View style={styles.textCenter}>
+            <Text>No Data available</Text>
+        </View>
+    );
+
+    if (isLoading) {
+        return <Loader></Loader>
     }
 
     return (
         <View style={styles.container}>
-            <View style={{ alignItems: 'center', backgroundColor: 'white', borderRadius: 30, margin: 15 }}>
+            <View style={styles.profile}>
                 <View>
-                    <Avatar.Icon style={{ margin: 10 }} size={100} icon="account" />
+                    <Avatar.Icon style={styles.avatar} size={100} icon="account" />
                 </View>
                 <View>
                     <Text style={{ fontSize: 25 }}>{name}</Text>
@@ -60,14 +73,15 @@ const MemberDetail = ({route}) => {
                     </View>
                 </View>
             </View>
-            <SectionList
+            <FlatList
                 style={{ margin: 10 }}
-                sections={paymentHistory}
+                data={paymentHistory}
                 // keyExtractor={(item, index) => item + index}
-                renderItem={({ item }) => <PaymentDetail />}
+                renderItem={({ item }) => <PaymentDetail {...item} />}
                 renderSectionHeader={({ section: { title } }) => (
                     <Text>{title}</Text>
                 )}
+                ListFooterComponent={renderFooter}
             />
             <FAB
                 medium
@@ -104,6 +118,15 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#f6f6f6'
     },
+    profile: {
+        alignItems: 'center',
+        backgroundColor: 'white',
+        borderRadius: 30,
+        margin: 15
+    },
+    avatar: {
+        margin: 10
+    },
     fab: {
         position: 'absolute',
         margin: 16,
@@ -118,6 +141,10 @@ const styles = StyleSheet.create({
     },
     paymentTitle: {
         fontSize: 20
+    },
+    textCenter: {
+        alignItems: 'center',
+        justifyContent: 'center'
     }
 });
 export default MemberDetail;
