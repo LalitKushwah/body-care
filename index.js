@@ -10,7 +10,7 @@ import React from 'react';
 import axios from 'axios';
 
 // this config should get read from env
-axios.defaults.baseURL = 'https://fast-chamber-45022.herokuapp.com/api/v1';
+axios.defaults.baseURL = 'https://boiling-taiga-78839.herokuapp.com/api/v1';
 
 export default function Main() {
     return (

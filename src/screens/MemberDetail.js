@@ -81,6 +81,7 @@ const MemberDetail = ({ route }) => {
                 renderSectionHeader={({ section: { title } }) => (
                     <Text>{title}</Text>
                 )}
+                contentContainerStyle={{paddingBottom: 30}}
                 ListFooterComponent={renderFooter}
             />
             <FAB
