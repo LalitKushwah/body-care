@@ -90,7 +90,7 @@ const MemberDetail = ({ route }) => {
                 onPress={() => bottomsheetRef.current.open()}
                 style={styles.fab}
             />
-            <BottomSheet ref={bottomsheetRef} height={300}>
+            <BottomSheet ref={bottomsheetRef} height={350}>
                 <View style={styles.paymentHeader}>
                     <Text style={styles.paymentTitle}>Add Payment</Text>
                 </View>
