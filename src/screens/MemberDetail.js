@@ -90,13 +90,14 @@ const MemberDetail = ({ route }) => {
                 onPress={() => bottomsheetRef.current.open()}
                 style={styles.fab}
             />
-            <BottomSheet ref={bottomsheetRef} height={350}>
+            <BottomSheet ref={bottomsheetRef} height={300}>
                 <View style={styles.paymentHeader}>
                     <Text style={styles.paymentTitle}>Add Payment</Text>
                 </View>
                 <View style={{ margin: 20 }}>
                     <TextInput
                         label="Enter payment amount"
+                        keyboardType="number-pad"
                         value={amount}
                         style={{ backgroundColor: 'white' }}
                         onChangeText={amount => setAmount(amount)}
@@ -107,7 +108,7 @@ const MemberDetail = ({ route }) => {
                         style={{ backgroundColor: 'white' }}
                         onChangeText={remark => setRemark(remark)}
                     />
-                    <Button mode="contained" onPress={addPayment}> Create </Button>
+                    <Button mode="contained" style={{marginTop: 10, height: 40}} onPress={addPayment}> Create </Button>
                 </View>
             </BottomSheet>
         </View>
