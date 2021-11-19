@@ -1,21 +1,28 @@
 import React from 'react';
-import { TextInput, RadioButton, Button } from 'react-native-paper';
-import { View, Text, Pressable } from 'react-native';
+import { TextInput, Button } from 'react-native-paper';
+import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { useState } from 'react/cjs/react.development';
 import axios from 'axios';
-import { Avatar } from 'react-native-paper';
 import Loader from '~/components/Loader';
-import CONSTANTS from '~/constants/assets';
+import DropDownPicker from 'react-native-dropdown-picker';
 
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
-const UserInfo = () => {
+const UserInfo = ({ fetchUsers }) => {
     const [name, setName] = useState('');
     const [plan, setPlan] = useState('monthly');
     const [address, setAddress] = useState('');
     const [contact, setContact] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const [cameraUri, setCameraUri] = useState(CONSTANTS.DEFAULT_CAMERA_IMAGE);
+
+    const [open, setOpen] = useState(false);
+    const [value, setValue] = useState(null);
+    const [items, setItems] = useState([
+        { label: 'Monthly', value: 'monthly' },
+        { label: 'Quaterly', value: 'quaterly' },
+        { label: 'Half Yearly', value: 'half' },
+        { label: 'yearly', value: 'yearly' },
+    ]);
+
 
     const onCreateUser = async () => {
         setIsLoading(true);
@@ -27,6 +34,7 @@ const UserInfo = () => {
             profilePhoto: 'NA'
         });
         setIsLoading(false);
+        fetchUsers();
     }
 
     if (isLoading) {
@@ -35,42 +43,60 @@ const UserInfo = () => {
 
     return (
         <View>
-            <View style={{ alignItems: 'center', justifyContent: 'center', margin: 10 }}>
-                <Pressable onPress={() => launchCamera({ mediaType: 'photo' }, res => {
-                    console.log(res);
-                    setCameraUri(res.assets[0].uri);
-                })}>
-                    <Avatar.Image
-                        size={100}
-                        style={{ backgroundColor: 'white' }}
-                        source={{ uri: cameraUri }}
-                    />
-                </Pressable>
+            <View style={styles.paymentHeader}>
+                <Text style={styles.paymentTitle}>Create User</Text>
             </View>
-            <TextInput label="Name" placeholder="Enter name" onChangeText={text => setName(text)} />
-            <TextInput label="Address" placeholder="Enter address" onChangeText={text => setAddress(text)} />
-            <TextInput label="Contact" placeholder="Enter mobile number" onChangeText={text => setContact(text)} keyboardType="number-pad" />
-            <RadioButton.Group onValueChange={setPlan} value={plan}>
-                <View>
-                    <Text>Monthly</Text>
-                    <RadioButton value="monthly" />
+            <View style={{ margin: 10 }}>
+                <TextInput label="Name" style={styles.input} placeholder="Enter name" onChangeText={text => setName(text)} />
+                <TextInput label="Address" style={styles.input} placeholder="Enter address" onChangeText={text => setAddress(text)} />
+                <TextInput label="Contact" style={styles.input} placeholder="Enter mobile number" onChangeText={text => setContact(text)} keyboardType="number-pad" />
+                <View style={{ elevation: 10, marginVertical: 10 }}>
+                    <DropDownPicker
+                        placeholder='Please select plan'
+                        open={open}
+                        value={value}
+                        items={items}
+                        setOpen={setOpen}
+                        setValue={setValue}
+                        setItems={setItems}
+                    />
                 </View>
-                <View>
-                    <Text>Quaterly</Text>
-                    <RadioButton value="quaterly" />
-                </View>
-                <View>
-                    <Text>Half Yearly</Text>
-                    <RadioButton value="half-yearly" />
-                </View>
-                <View>
-                    <Text>Yearly</Text>
-                    <RadioButton value="yearly" />
-                </View>
-            </RadioButton.Group>
-            <Button mode="contained" onPress={onCreateUser}>Add Member</Button>
+                <Button mode="contained" onPress={onCreateUser}>Add Member</Button>
+            </View>
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#f6f6f6'
+    },
+    input: {
+        backgroundColor: 'white',
+    },
+    avatar: {
+        margin: 10
+    },
+    fab: {
+        position: 'absolute',
+        margin: 16,
+        right: 0,
+        bottom: 0,
+        backgroundColor: '#5e3d9f'
+    },
+    paymentHeader: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 20
+    },
+    paymentTitle: {
+        fontSize: 20
+    },
+    textCenter: {
+        alignItems: 'center',
+        justifyContent: 'center'
+    }
+});
 
 export default UserInfo;

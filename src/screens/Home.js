@@ -1,12 +1,12 @@
-import React, { useState, useEffect,useRef } from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import { FAB } from 'react-native-paper';
 import List from '../components/List';
 import axios from 'axios';
 import Loader from '~/components/Loader';
 import Searchbar from '~/components/Searchbar';
 import BottomSheet from '~/components/BottomSheet';
-import CreateUser from '~/components/UserInfo';
+import UserInfo from './UserInfo';
 
 const HomeScreen = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -16,6 +16,10 @@ const HomeScreen = ({ navigation }) => {
   const bottomsheetRef = useRef();
 
   useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  const fetchUsers = useCallback(() => {
     axios('/users').then(response => {
       setIsLoading(false);
       setMembers(response.data);
@@ -24,7 +28,7 @@ const HomeScreen = ({ navigation }) => {
       setIsLoading(false);
       console.error(err);
     });
-  }, [setIsLoading, isLoading]);
+  }, [isLoading, members])
 
   const onSearchHandler = text => {
     setSearchText(text);
@@ -46,8 +50,8 @@ const HomeScreen = ({ navigation }) => {
         onPress={() => bottomsheetRef.current.open()}
         style={styles.fab}
       />
-      <BottomSheet ref={bottomsheetRef} height={300}>
-
+      <BottomSheet ref={bottomsheetRef} height={Dimensions.get('window').height / 2}>
+        <UserInfo fetchUsers={fetchUsers} />
       </BottomSheet>
     </View>
   );

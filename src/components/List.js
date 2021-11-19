@@ -9,7 +9,7 @@ const List = ({ members, rest }) => {
     <View style={styles.container}>
       <FlatList
         data={members}
-        renderItem={itemData => <ListItem {...itemData.item}/>}
+        renderItem={itemData => <ListItem {...itemData.item} />}
       />
     </View>
   );
@@ -17,6 +17,7 @@ const List = ({ members, rest }) => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     padding: 20
   }
 })
