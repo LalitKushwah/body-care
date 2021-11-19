@@ -8,14 +8,13 @@ import DropDownPicker from 'react-native-dropdown-picker';
 
 
 const UserInfo = ({ fetchUsers }) => {
-    const [name, setName] = useState('');
-    const [plan, setPlan] = useState('monthly');
-    const [address, setAddress] = useState('');
-    const [contact, setContact] = useState('');
+    const [name, setName] = useState(null);
+    const [plan, setPlan] = useState(null);
+    const [address, setAddress] = useState(null);
+    const [contact, setContact] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
     const [open, setOpen] = useState(false);
-    const [value, setValue] = useState(null);
     const [items, setItems] = useState([
         { label: 'Monthly', value: 'monthly' },
         { label: 'Quaterly', value: 'quaterly' },
@@ -54,14 +53,14 @@ const UserInfo = ({ fetchUsers }) => {
                     <DropDownPicker
                         placeholder='Please select plan'
                         open={open}
-                        value={value}
+                        value={plan}
                         items={items}
                         setOpen={setOpen}
-                        setValue={setValue}
+                        setValue={setPlan}
                         setItems={setItems}
                     />
                 </View>
-                <Button mode="contained" onPress={onCreateUser}>Add Member</Button>
+                <Button mode="contained" disabled={(!name || !address || !plan)} onPress={onCreateUser}>Add Member</Button>
             </View>
         </View>
     );
