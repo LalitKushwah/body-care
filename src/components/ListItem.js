@@ -6,6 +6,7 @@ import {useNavigation} from '@react-navigation/native';
 
 const ListItem = ({name, address, _id}) => {
   const navigation = useNavigation();
+  const randomColor = ['#540754', '#e51837', '#23427f', '#47578f', '#293c42'];
   const user = {name, address, _id};
   return (
     <View style={styles.container}>
@@ -16,7 +17,14 @@ const ListItem = ({name, address, _id}) => {
           title={name}
           description={address}
           left={() => (
-            <Avatar.Icon style={{margin: 10}} size={50} icon="account" />
+            <Avatar.Icon
+              style={{
+                margin: 10,
+                backgroundColor: randomColor[Math.floor(Math.random() * 5)],
+              }}
+              size={50}
+              icon="account"
+            />
           )}
           right={() => <List.Icon icon="arrow-right-circle" />}
         />
