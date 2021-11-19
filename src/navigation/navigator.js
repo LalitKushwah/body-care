@@ -18,7 +18,7 @@ const screenOptions = {
 
 const HomeScreenStack = () => (
   <HomeStack.Navigator screenOptions={{
-    headerTitleStyle:{color: 'white'},
+    headerTitleStyle: { color: 'white' },
     headerTintColor: 'white',
   }}>
     <HomeStack.Screen
