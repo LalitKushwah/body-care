@@ -1,13 +1,14 @@
 import React from 'react';
 import {View} from 'react-native';
 import {List, Badge} from 'react-native-paper';
+import {DATE_FORMAT} from '~/constants/common';
 import moment from 'moment';
 
 const PaymentDetail = ({remark, amount, date}) => {
   return (
     <List.Item
       title={remark}
-      description={moment(date).format('DD-MMM-YYYY:HH:MM')}
+      description={moment(date).format(DATE_FORMAT)}
       left={props => <List.Icon {...props} icon="contactless-payment" />}
       right={() => (
         <View style={{margin: 10}}>
